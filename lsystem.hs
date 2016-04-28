@@ -6,13 +6,16 @@ data LSys = LSys {start :: String, replacements :: [(Char, String)]}
 instance Show LSys where
   show = start
 
+axiom :: ReadP String
+axiom = munch (not . flip elem " \n}")
+
 replacement :: ReadP (Char, String)
 replacement = do
   from <- satisfy isAlphaNum
   skipSpaces
   char '='
   skipSpaces
-  to <- munch isAlphaNum
+  to <- axiom
   return (from, to)
 
 lsys :: ReadP LSys
@@ -24,7 +27,7 @@ lsys = do
   skipSpaces
   optional $ string "Axiom"
   skipSpaces
-  start <- munch (not . flip elem " \n}")
+  start <- axiom
   skipSpaces
   replacements <- sepBy replacement skipSpaces
   skipSpaces
