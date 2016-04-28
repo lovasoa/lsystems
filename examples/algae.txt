@@ -1,0 +1,5 @@
+Algae {
+  Axiom A
+  A = AB
+  B = A
+}
