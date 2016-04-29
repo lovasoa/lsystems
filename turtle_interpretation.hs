@@ -64,8 +64,10 @@ turtle defaultCtx code = let
                 "xmlns=\"http://www.w3.org/2000/svg\" ",
                 "xmlns:xlink=\"http://www.w3.org/1999/xlink\" ",
                 "width=\"", show w, "\" height=\"", show h, "\" >\n",
-              "<path fill=\"none\" stroke=\"black\" d=\"M0,0",
-                path, "\" />\n</svg>"]
+              "<g transform=\"translate(10,10)\">\n",
+              "<path fill=\"none\" stroke=\"black\" d=\"\nM0,0\n",
+                path, "\" />\n",
+              "</g>\n</svg>"]
 
 main = do
   source <- getContents
