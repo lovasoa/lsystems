@@ -1,4 +1,7 @@
 import Data.List
+import Data.Maybe
+import Text.Read
+import System.Environment
 
 data Ctx = Ctx {
                 angle :: Float, -- current angle
@@ -16,7 +19,7 @@ defaultCtx = Ctx {
   alpha = pi/2,
   pos = (0,0),
   size = (0,0),
-  linelen = 100,
+  linelen = 50,
   saved = [],
   svg = showString ""
 }
@@ -50,8 +53,8 @@ interpret ctx ']' = case saved ctx of
 
 interpret ctx _ = ctx
 
-turtle :: String -> String
-turtle code = let
+turtle :: Ctx -> String -> String
+turtle defaultCtx code = let
               ctx = foldl' interpret defaultCtx code
               (w',h') = size ctx
               (w,h) = (w'+20, h'+20)
@@ -61,9 +64,13 @@ turtle code = let
                 "xmlns=\"http://www.w3.org/2000/svg\" ",
                 "xmlns:xlink=\"http://www.w3.org/1999/xlink\" ",
                 "width=\"", show w, "\" height=\"", show h, "\" >\n",
-              "<path fill=\"none\" stroke=\"black\" d=\"M10,10",
+              "<path fill=\"none\" stroke=\"black\" d=\"M0,0",
                 path, "\" />\n</svg>"]
 
 main = do
   source <- getContents
-  putStrLn $ turtle source
+  args <- getArgs
+  let angle_g = fromMaybe 90 $ case args of
+                                  [sn] -> readMaybe sn
+                                  _    -> Nothing
+  putStrLn $ turtle defaultCtx {alpha = angle_g*pi/180} source
