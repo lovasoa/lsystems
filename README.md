@@ -34,5 +34,5 @@ ABAABABAABAABABAABABAABAABABAABAAB
 
 # Generate images
 ```sh
-./lsystel < examples/plant.txt | ./turtle_interpretation 20 > tes.svg
+./lsystem < examples/plant.txt | ./turtle_interpretation 20 > tes.svg
 ```
