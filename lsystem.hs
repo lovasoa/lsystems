@@ -11,12 +11,15 @@ instance Show LSys where
 axiom :: ReadP String
 axiom = munch (not . flip elem " \n}")
 
+skipSpacesNoNL :: ReadP String -- skip all whitespace but '\n'
+skipSpacesNoNL = munch (\c -> isSpace c && c /= '\n')
+
 replacement :: ReadP (Char, String)
 replacement = do
   from <- satisfy isAlphaNum
-  skipSpaces
+  skipSpacesNoNL
   char '='
-  skipSpaces
+  skipSpacesNoNL
   to <- axiom
   return (from, to)
 
@@ -28,7 +31,7 @@ lsys = do
   optional $ char '{'
   skipSpaces
   optional $ string "Axiom"
-  skipSpaces
+  skipSpacesNoNL
   start <- axiom
   skipSpaces
   replacements <- sepBy replacement skipSpaces
