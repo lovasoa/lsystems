@@ -31,3 +31,8 @@ ABAABABAABAABABAABABAABAABABAABAAB
 ...
 ```
 (it never stops)
+
+# Generate images
+```sh
+./lsystel < examples/plant.txt | ./turtle_interpretation 20 > tes.svg
+```
