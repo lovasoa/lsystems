@@ -1,6 +1,8 @@
+import System.Environment
 import Text.ParserCombinators.ReadP
 import Data.Char
 import Data.Maybe
+import Text.Read
 
 data LSys = LSys {start :: String, replacements :: [(Char, String)]}
 instance Show LSys where
@@ -53,6 +55,12 @@ generations = iterate do_step
 
 main = do
   source <- getContents
+  args <- getArgs
   case parse source of
-    Just sys -> putStrLn $ unlines $ map show $ generations sys
-    Nothing -> putStrLn "Invalid syntax"
+    Just sys -> let lines = map show $ generations sys in
+                  case args of
+                    [sn] -> case readMaybe sn of
+                             Just n -> putStrLn (lines !! n)
+                             Nothing -> fail "Invalid argument"
+                    _   -> putStrLn $ unlines lines
+    Nothing -> fail "Invalid syntax"

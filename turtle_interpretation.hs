@@ -61,4 +61,4 @@ turtle s = svg_start ++ (path s) ++ svg_end
 
 main = do
   source <- getContents
-  putStrLn $ unlines $ map turtle $ lines source
+  putStrLn $ turtle source
