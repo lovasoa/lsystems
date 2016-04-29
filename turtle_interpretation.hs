@@ -31,7 +31,7 @@ interpret ctx 'F' = let
   (dx,dy) = (l*cos(a), l*sin(a))
   (x, y) = pos ctx
   (newx, newy) = (x+dx, y+dy) 
-  (h, w) = size ctx
+  (w, h) = size ctx
   in addSvg ctx {pos = (newx,newy), size=(max w newx, max h newy)} "l" (dx,dy)
 
 interpret ctx '-' = ctx {angle = alpha ctx + angle ctx}
