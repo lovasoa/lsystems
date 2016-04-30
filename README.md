@@ -1,5 +1,7 @@
-# lsystems
+# L-Systems
 Haskell implementation of [L-systems](https://en.wikipedia.org/wiki/L-system)
+
+![L-Système plante](https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Plante_g%C3%A9n%C3%A9r%C3%A9e_%C3%A0_l'aide_d'un_L-Syst%C3%A8me.svg/1280px-Plante_g%C3%A9n%C3%A9r%C3%A9e_%C3%A0_l'aide_d'un_L-Syst%C3%A8me.svg.png)
 
 ## Usage
 #### Command
@@ -29,3 +31,8 @@ ABAABABAABAABABAABABAABAABABAABAAB
 ...
 ```
 (it never stops)
+
+# Generate images
+```sh
+./lsystem < examples/plant.txt | ./turtle_interpretation 20 > tes.svg
+```
