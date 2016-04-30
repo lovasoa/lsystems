@@ -26,9 +26,7 @@ replacement = do
 lsys :: ReadP LSys
 lsys = do
   skipSpaces
-  optional $ munch isAlphaNum
-  skipSpaces
-  optional $ char '{'
+  optional $ (munch isAlphaNum >> skipSpaces >> char '{')
   skipSpaces
   optional $ string "Axiom"
   skipSpacesNoNL
@@ -36,14 +34,15 @@ lsys = do
   skipSpaces
   replacements <- sepBy replacement skipSpaces
   skipSpaces
-  char '}'
+  optional $ char '}'
   skipSpaces
+  eof
   return LSys {start = start, replacements = replacements}
 
 parse :: String -> Maybe LSys
 parse s = case readP_to_S lsys s of
             ((parsed, ""):l) -> Just parsed
-            _ -> Nothing
+            [] -> Nothing
 
 
 replace :: [(Char, String)] -> String -> String
