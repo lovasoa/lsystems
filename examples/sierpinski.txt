@@ -1,0 +1,6 @@
+Triangle {
+  Axiom A
+  F = 
+  A = +FB-FA-FB+
+  B = -FA+FB+FA-
+}
