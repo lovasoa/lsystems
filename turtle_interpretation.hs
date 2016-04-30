@@ -69,7 +69,7 @@ turtle defaultCtx code = let
                 "viewBox=\"",
                     show (minx-10), " ", show (miny-10), " ",
                     show w, " ", show h, "\"\n",
-                "width=\"", show w, "\" height=\"", show h, "\" >\n",
+                "width=\"700\" height=\"700\" >\n",
               "<path fill=\"none\" stroke=\"black\" d=\"\nM0,0\n",
                 path, "\" />\n",
               "</svg>"]
